@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; worker-src 'self'; connect-src 'none'; object-src 'none'"
+    />
+    <title>SIMLINE · 인연</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="family.css" /><link rel="stylesheet" href="editor.css" />
+  </head>
+  <body class="detail-hidden">
+    <header class="appbar">
+      <button class="brand" data-action="projects" title="프로젝트 열기">
+        <span class="brandmark">✳</span><span>인연<small>SIMLINE</small></span>
+      </button>
+      <div class="breadcrumb">
+        <span>나의 서재</span><i>/</i
+        ><button id="project-title" data-action="project-settings"></button>
+      </div>
+      <div class="top-actions"><button hidden id="qa-reload" class="quiet" data-action="reload-source" title="저장한 소스 화면을 다시 읽기">QA 새로고침</button>
+        <span id="save-status" class="save-status">● 저장됨</span
+        ><button
+          class="icon-button"
+          data-action="undo"
+          id="undo"
+          title="실행 취소 (Ctrl+Z)"
+        >
+          ↶</button
+        ><button
+          class="icon-button"
+          data-action="redo"
+          id="redo"
+          title="다시 실행 (Ctrl+Shift+Z)"
+        >
+          ↷</button
+        ><span class="divider"></span
+        ><button class="quiet" data-action="export-menu">내보내기 ↗</button
+        ><button
+          class="icon-button help-button"
+          data-action="help"
+          title="사용 안내"
+        >
+          ?
+        </button>
+      </div>
+    </header>
+    <div class="workspace">
+      <aside class="sidebar">
+        <div class="sidebar-title">
+          <span>등장인물</span><span id="people-count" class="count"></span
+          ><button
+            class="small-icon"
+            data-action="add-person"
+            title="인물 추가"
+          >
+            ＋
+          </button>
+        </div>
+        <label class="search"
+          ><span>⌕</span
+          ><input
+            id="search"
+            placeholder="이름, 태그, 메모 검색"
+            autocomplete="off"
+          /><kbd>/</kbd></label
+        >
+        <details class="collection-drawer"><summary>컬렉션</summary><div class="side-caption">
+          나의 컬렉션
+          <button class="text-button" data-action="group-settings">관리</button>
+        </div>
+        <div id="groups"></div></details>
+        <div class="side-divider"></div>
+        <div class="side-caption">
+          인물 목록 <span id="visible-count"></span>
+        </div>
+        <div id="person-list" class="person-list"></div>
+        <button hidden class="add-person" data-action="add-person">
+          ＋ 새로운 인물
+        </button>
+        <div class="sidebar-bottom">
+          <button data-action="projects">
+            <span>▧</span> 프로젝트 서재 <span>↗</span>
+          </button>
+          <div><i class="online-dot"></i> 나의 컴퓨터에 안전하게 보관</div>
+        </div>
+      </aside>
+      <main id="main">
+        <div class="canvas-heading">
+          <div>
+            <h1 id="canvas-title"></h1>
+            <p id="canvas-description"></p>
+          </div>
+          <div class="mode-switch">
+            <button class="active" data-action="mode" data-mode="network">
+              ⌘ 관계망</button
+            ><button data-action="mode" data-mode="family">⑂ 가족 단위</button><button data-action="mode" data-mode="unified">통합 가계도</button>
+          </div>
+        </div>
+        <div class="canvas-toolbar"><button class="primary main-add" data-action="add-person">＋ 인물 추가</button><span id="connection-hint" role="status">카드의 ⊕를 다른 카드까지 끌어 연결하세요.</span><button class="tool-button visible-fit" data-action="fit">전체 보기</button><details id="canvas-tools"><summary>도구 ▾</summary><div class="tools-content">
+          <button class="focus-button" data-action="focus-picker">
+            <span class="focus-dot"></span
+            ><span id="focus-label">기준 인물</span><span>⌄</span>
+          </button>
+          <div class="toolbar-separator"></div>
+          <button class="tool-button" data-action="filters">
+            ☷ 필터 <span id="filter-count"></span></button
+          ><button class="tool-button" data-action="layout-menu">✧ 정렬</button
+          ><button class="tool-button" data-action="fit">⊡ 전체 보기</button
+          ><button class="tool-button" data-action="families">가족 단위</button
+          ><button class="tool-button" data-action="paths">경로 찾기</button
+          ><span id="mode-note" class="mode-note"
+            >드래그한 카드는 그 자리에 고정됩니다</span
+          >
+          <div id="family-jump" hidden></div></div></details>
+        </div>
+        <div id="canvas-wrap">
+          <svg
+            id="canvas"
+            xmlns="http://www.w3.org/2000/svg"
+            tabindex="0"
+            aria-label="인물 관계도 캔버스"
+          >
+            <defs>
+              <pattern
+                id="dots"
+                width="24"
+                height="24"
+                patternUnits="userSpaceOnUse"
+              >
+                <circle cx="2" cy="2" r=".7" fill="#343b40" />
+              </pattern>
+              <filter
+                id="card-shadow"
+                x="-25%"
+                y="-25%"
+                width="150%"
+                height="160%"
+              >
+                <feDropShadow
+                  dx="0"
+                  dy="8"
+                  stdDeviation="9"
+                  flood-opacity=".2"
+                />
+              </filter>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#dots)" />
+            <g id="world"></g>
+          </svg>
+          <div id="canvas-empty" class="empty-canvas" hidden>
+            <span>✳</span>
+            <h2>첫 인물에서 시작되는 이야기</h2>
+            <p>사진과 이름을 등록하고 관계를 이어 보세요.</p>
+            <button class="primary" data-action="add-person">
+              ＋ 첫 인물 만들기
+            </button>
+          </div>
+          <div class="zoom-controls">
+            <button data-action="zoom-out" title="축소">−</button
+            ><span id="zoom-value">100%</span
+            ><button data-action="zoom-in" title="확대">＋</button><span></span
+            ><button data-action="fit" title="전체 보기">⊡</button>
+          </div>
+          <svg id="minimap" width="136" height="90" aria-label="미니맵"></svg>
+          <div id="layout-status" class="layout-status" hidden>
+            배치를 정리하고 있습니다…
+          </div>
+        </div>
+        <div class="canvas-footer">
+          <div id="legend"></div>
+          <span id="graph-stats"></span>
+        </div>
+        <div id="path-panel" class="path-panel" hidden></div>
+      </main>
+      <aside id="details" class="details"></aside>
+    </div>
+    <div id="toast" role="status"></div>
+    <dialog id="modal"><div id="modal-content"></div></dialog>
+    <script src="families.js"></script>
+    <script src="unified.js"></script>
+    <script src="core.js"></script>
+    <script src="app.js"></script>
+    <script src="family-ui.js"></script><script src="editor.js"></script>
+  </body>
+</html>
