@@ -1,0 +1,169 @@
+.family-record {
+  border: 1px solid #35463e;
+  background: #222c28;
+  border-radius: 9px;
+  padding: 12px;
+  margin: 10px 0;
+}
+.family-record-title {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 1px 0 9px;
+}
+.family-record-title strong,
+.family-record-title span {
+  display: block;
+}
+.family-record-title strong {
+  font-size: 14px;
+  color: #dae4d7;
+}
+.family-record-title span {
+  font-size: 11px;
+  color: #a0b1a8;
+  margin-top: 6px;
+}
+.family-tools,
+.family-chips,
+.child-pills,
+.inline-add {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.family-tools .secondary,
+.family-event-heading .secondary {
+  font-size: 10px;
+  padding: 6px 9px;
+}
+.family-event-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  color: #c9dacb;
+  font-size: 12px;
+}
+.birth-event {
+  padding: 13px;
+  margin: 10px 0;
+  border: 1px solid #3b4c45;
+  border-radius: 8px;
+  background: #202a25;
+}
+.birth-event > label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #a0afa6;
+  font-size: 10px;
+}
+.birth-event input[type="date"] {
+  width: 145px;
+  padding: 5px;
+}
+.child-pills {
+  margin: 10px 0;
+}
+.child-pill,
+.family-chip {
+  background: #344438;
+  color: #cedbcc;
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+}
+.child-pill button {
+  margin-left: 6px;
+  color: #afbbaf;
+}
+.inline-add input {
+  flex: 1;
+  min-width: 100px;
+}
+.inline-add button {
+  font-size: 10px;
+  padding: 8px;
+}
+.family-quick-add,
+.descendants {
+  margin: 13px 0;
+  color: #a1b3a6;
+  font-size: 11px;
+}
+.family-quick-add summary,
+.descendants summary {
+  cursor: pointer;
+  padding: 6px 0;
+}
+.family-profile .profile-meta {
+  grid-template-columns: 60px 1fr;
+}
+.family-chip {
+  margin: 2px 1px;
+}
+.family-chips {
+  margin: 10px 0;
+}
+.person-link {
+  font-size: 11px;
+  color: #bbd3b9;
+  border-bottom: 1px dotted #657d6b;
+  padding: 1px 3px;
+}
+.identity {
+  user-select: all;
+  overflow-wrap: anywhere;
+}
+.path-result {
+  display: block;
+  width: 100%;
+  border: 1px solid #384b40;
+  border-radius: 6px;
+  background: #253129;
+  padding: 10px;
+  margin: 6px 0;
+  text-align: left;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.path-result small {
+  font-size: 10px;
+  color: #91a89a;
+}
+.canvas-toolbar {
+  flex-wrap: wrap;
+}
+.mode-note {
+  display: none;
+}
+#family-jump {
+  position: absolute;
+  left: 18px;
+  top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+  background: #1c2722ee;
+  border: 1px solid #3d5144;
+  border-radius: 7px;
+  padding: 4px 7px;
+  color: #c5d6c4;
+  font-size: 10px;
+}
+#family-jump select {
+  width: auto;
+  max-width: 150px;
+  font-size: 10px;
+  padding: 4px;
+  background: #202b25;
+  border: 0;
+}
+#family-jump button {
+  font-size: 10px;
+  color: #c5d6c4;
+  padding: 4px;
+}
